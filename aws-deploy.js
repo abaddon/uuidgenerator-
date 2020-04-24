@@ -16,9 +16,6 @@ const s3Config = {
 }
 const s3 = new AWS.S3(s3Config);
 
-//remove this log in production
-// Github show  **** instead of your keys(some privacy things), so //don't panic if you see your password like that
-console.log('s3 config ', s3Config)
 // resolve full folder path
 const distFolderPath = path.join(__dirname, config.folderPath);
 
