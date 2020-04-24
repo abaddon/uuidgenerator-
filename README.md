@@ -1,3 +1,5 @@
+![CI/CD](https://github.com/abaddon/uuidgenerator-/workflows/CI/CD/badge.svg?branch=master)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
