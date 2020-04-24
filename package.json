@@ -10,15 +10,11 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
-  "devDependencies": {
-    "aws-sdk": "^2.662.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy-aws": "node aws-deploy.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
