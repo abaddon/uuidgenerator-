@@ -12,10 +12,10 @@ on:
       - master
 
 jobs:
-  primary:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -26,5 +26,12 @@ jobs:
         run: npm run build
       - name: test
         run: npm run test
-      - name: aws deploy
-        run: BUILD_DIRECTORY=build BUCKET_NAME=www.uuidgenerator.info AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} npm run deploy-aws
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          #AWS_REGION: 'us-west-1'   # optional: defaults to us-east-1
+          #SOURCE_DIR: 'public'      # optional: defaults to entire repository
