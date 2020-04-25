@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -19,19 +19,10 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export default function  UUIDCard({uuid}){    
+export default function  UUIDCard({uuid, label}){    
     const classes = useStyles();
     
-    const [copyLabel, setCopyLabel] = useState("Copy"); 
-    const [clicked, setClicked] = useState(false); 
-
-    useEffect(() => {
-        if(clicked === true){
-            setCopyLabel("Copy")
-        }
-    });
-
-
+    const [copyLabel, setCopyLabel] = useState(label); 
 
     return (
          <Card key={uuid} className={classes.card}>
@@ -39,7 +30,7 @@ export default function  UUIDCard({uuid}){
                 <Typography variant="h5" component="h5">{uuid}</Typography>
             </CardContent>
             <CardActions>
-                <CopyToClipboard text={uuid} onCopy={() => {setCopyLabel("Copied!"); setClicked(true)}}>
+                <CopyToClipboard text={uuid} onCopy={() => {setCopyLabel("Copied!")}}>
                     <Button size="small" color="primary">{copyLabel}</Button>
                 </CopyToClipboard>
             </CardActions>
