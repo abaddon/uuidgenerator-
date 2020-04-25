@@ -1,6 +1,5 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import UUIDCard from './uuidCard';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Button from '@material-ui/core/Button';
@@ -9,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
-export const AuthContext = React.createContext(); // added this
 const useStyles = makeStyles(theme => ({
     icon: {
         marginRight: theme.spacing(2),
@@ -32,28 +30,28 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
-const initialState = {
-    isFetching: false,
-    hasError: false,
-    uuids:["c8039e17-230c-48ea-955a-3533a748990b"]
- }
+const initialState =  {
+  isFetching: false,
+  hasError: false,
+  uuids:[]
+}
 
  const reducer = (state, action) => {
     switch (action.type) {
-      case "FETCH_SONGS_REQUEST":
+      case "FETCH_UUIDS_REQUEST":
         return {
           ...state,
           isFetching: true,
-          hasError: false
+          hasError: false,
+          uuids:[]
         };
-      case "FETCH_SONGS_SUCCESS":
+      case "FETCH_UUIDS_SUCCESS":
         return {
           ...state,
           isFetching: false,
-          uuids: action.payload
+          uuids: action.uuids
         };
-      case "FETCH_SONGS_FAILURE":
+      case "FETCH_UUIDS_FAILURE":
         return {
           ...state,
           hasError: true,
@@ -63,47 +61,61 @@ const initialState = {
         return state;
     }
   };
-  
+
+
 
 export const UUIDList = () => {
+    const [count, setCount] = useState(0);
+
+    const [state, dispatch] = React.useReducer(reducer, initialState);
     
-    const [state, dispatch] = React.useReducer(reducer, initialState);    
+    function callApi(){
+      fetch("https://api.uuidgenerator.info/uuid/v4", {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+              .then(res => {
+                if (res.ok) {
+                  return res.json();
+                }else {
+                  throw res;
+                }
+              })
+              .then(resJson => {
+                dispatch({
+                    type: "FETCH_UUIDS_SUCCESS",
+                    uuids: resJson
+                })
+              })
+              .catch(error => {
+                console.log(error);
+                dispatch({
+                  type: "FETCH_UUIDS_FAILURE"
+                });
+              });
+    }
     
     const handleUUIDRequest = event => {
         event.preventDefault();
         dispatch({
-          type: "FETCH_SONGS_REQUEST"
+          type: "FETCH_UUIDS_REQUEST"
         });
-        fetch("https://api.uuidgenerator.info/identifier/uuid", {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            throw res;
-          })
-          .then(resJson => {
-            dispatch({
-                type: "FETCH_UUIDS_SUCCESS",
-                uuids: resJson
-            })
-          })
-          .catch(error => {
-            console.log(error);
-            dispatch({
-              type: "FETCH_SONGS_FAILURE"
-            });
-          });
+        callApi();
       };
-    
 
     const classes = useStyles();
+
+    useEffect(function load() {
+      if (count === 0) {
+        setCount(1);
+        callApi();
+      }
+    }, [count]);
+      
+
     return (
-        <AuthContext.Provider value={{state,dispatch}}>
             <Container className={classes.cardGrid} maxWidth="md">
                 <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                     <FingerprintIcon className={classes.icon}  style={{ fontSize: 60 }} /> 
@@ -114,15 +126,12 @@ export const UUIDList = () => {
                 <div className={classes.cardGrid}>
                     <Grid container spacing={1} justify="center">
                         <Grid item>
-                          {
-                            state.isFetching ? (
+                            {state.isFetching ? (
                               <span className="loader">LOADING...</span>
-                            ): state.hasError ? (
+                            ) : state.hasError ? (
                               <span className="error">AN ERROR HAS OCCURED</span>
-                            ): (
-                              <List dense="false">
-                              {state.uuids.map(code => (<ListItem><UUIDCard uuid={code} label="Copy"/></ListItem>))}
-                              </List>
+                            ) : (
+                                state.uuids.map(code => (<ListItem><UUIDCard key={code} uuid={code} label="Copy"/></ListItem>))
                             )}
                         </Grid>
                     </Grid>
@@ -133,7 +142,6 @@ export const UUIDList = () => {
                     </Grid> 
                 </div>
             </Container>
-        </AuthContext.Provider>
   );
 };
 export default UUIDList;

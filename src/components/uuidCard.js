@@ -25,7 +25,7 @@ export default function  UUIDCard({uuid, label}){
     const [copyLabel, setCopyLabel] = useState(label); 
 
     return (
-         <Card key={uuid} className={classes.card}>
+         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
                 <Typography variant="h5" component="h5">{uuid}</Typography>
             </CardContent>
