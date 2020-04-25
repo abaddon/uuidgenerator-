@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -56,8 +55,7 @@ export default function App() {
   const classes = useStyles();
 
   const [uuids, setUUIDs] = useState([]); 
-  const [hasError, setErrors] = useState(false);
-
+  
   useEffect(() => {
     fetchData();
   },[]);
