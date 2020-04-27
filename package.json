@@ -17,6 +17,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "new-version": "npm version patch",
+    "generate-build-version": "node generate-build-version",
+    "prebuild": "npm run generate-build-version",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
