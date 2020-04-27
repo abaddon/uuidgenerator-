@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import ReactGA from 'react-ga';
 
 const useStyles = makeStyles(theme => ({
     icon: {
@@ -55,8 +56,6 @@ const initialState =  {
     }
   };
 
-
-
 export const UUIDList = () => {
     const [count, setCount] = useState(0);
 
@@ -92,6 +91,12 @@ export const UUIDList = () => {
     
     const handleUUIDRequest = event => {
         event.preventDefault();
+
+        ReactGA.event({
+          category: 'User',
+          action: 'uuidv4 refreshed'
+        });
+
         dispatch({
           type: "FETCH_UUIDS_REQUEST"
         });
