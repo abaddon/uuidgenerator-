@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     cardGrid: {
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
+        minHeight: '40vh'
     },
     footer: {
         backgroundColor: theme.palette.background.paper,
@@ -62,7 +63,8 @@ export const UUIDList = () => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     
     function callApi(){
-      fetch("https://api.uuidgenerator.info/uuid/v4", {
+      fetch("https://api.uuidgenerator.info/uuids/v4?quantity=3", {
+
               method: "get",
               headers: {
                 "Content-Type": "application/json"
@@ -78,7 +80,7 @@ export const UUIDList = () => {
               .then(resJson => {
                 dispatch({
                     type: "FETCH_UUIDS_SUCCESS",
-                    uuids: resJson
+                    uuids: resJson.uuids
                 })
               })
               .catch(error => {
