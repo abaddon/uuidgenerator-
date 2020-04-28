@@ -35,7 +35,7 @@ export const Header = () => {
           <Link to="/">
             <Button variant="contained" color="default" className={classes.button} startIcon={<HomeIcon />}>Home</Button>
           </Link>
-          <Link to="/dev/api">
+          <Link to="/api">
             <Button variant="contained" color="default" className={classes.button} startIcon={<SwapHorizontalCircleIcon />}>API doc</Button>
           </Link>
           <Button variant="contained" color="default" className={classes.button} startIcon={<GitHubIcon />} href="https://github.com/abaddon/uuidgenerator-" target="_blank" rel="noopener">Repository</Button>
