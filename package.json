@@ -8,12 +8,17 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "core-js": "^3.6.5",
+    "mobx": "^4.15.4",
     "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "react-styleguidist": "^11.0.5"
+    "react-styleguidist": "^11.0.5",
+    "redoc": "^2.0.0-rc.28",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

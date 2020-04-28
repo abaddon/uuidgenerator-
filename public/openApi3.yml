@@ -1,0 +1,41 @@
+openapi: 3.0.1
+info:
+  title: api.uuidgenerator.info
+  version: '0.0.2'
+servers:
+  - url: 'https://api.uuidgenerator.info'
+paths:
+  /uuids/v4:
+    get:
+      summary: list of UUID version 4
+      description: return a list of UUID version 4. The max size of the list is 20 items.
+      parameters:
+        - name: quantity
+          in: query
+          description: The max value is 20
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: succesful operation
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUUIDV4'
+components:
+  schemas:
+    Empty:
+      title: Empty Schema
+      type: object
+    GetUUIDV4:
+      title: UUID list
+      type: object
+      properties:
+        uuids:
+          type: array
+          items:
+            type: string
