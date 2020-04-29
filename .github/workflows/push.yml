@@ -2,10 +2,10 @@ name:  CI/CD
 
 on:
   push:
-    tags:
-    - '*'
     branches:
-    - master
+      - master
+    tags:
+      - '!refs/tags/*'
 
 jobs:
   deploy:
