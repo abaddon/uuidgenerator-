@@ -3,8 +3,10 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 var CompressionPlugin = require('compression-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 
 
 module.exports = {
@@ -64,7 +66,7 @@ module.exports = {
           minChunks: Infinity
         },
         minimizer: [
-          new UglifyJsPlugin({
+          /*new UglifyJsPlugin({
             cache: false,
             uglifyOptions: {
               output: {
@@ -72,7 +74,8 @@ module.exports = {
               }
             },
             extractComments: true
-          })
+          }),*/
+          new TerserPlugin({ /* additional options here */ })
         ]
       },
     plugins: [
