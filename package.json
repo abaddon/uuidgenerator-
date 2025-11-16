@@ -24,8 +24,8 @@
     "react-helmet": "^6.0.0",
     "react-router-dom": "^5.1.2",
     "react-router-ga": "^1.2.3",
-    "react-scripts": "3.4.1",
-    "redoc": "^2.0.0-rc.28",
+    "react-scripts": "5.0.1",
+    "redoc": "^2.5.2",
     "styled-components": "^5.1.0"
   },
   "scripts": {
@@ -68,7 +68,7 @@
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.2.0",
-    "postcss-loader": "^3.0.0",
+    "postcss-loader": "^8.2.0",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^2.3.6",
     "uglifyjs-webpack-plugin": "^2.2.0",
